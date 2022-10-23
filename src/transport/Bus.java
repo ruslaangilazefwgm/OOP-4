@@ -1,18 +1,42 @@
 package transport;
-public class Bus extends Transport {
-    public Bus(String mark, String model, int year, String country, String colour, int maxSpeed, String fuelType) {
-        super(mark, model, year, country, colour, maxSpeed, fuelType);
-        if (fuelType == "Бензин" || fuelType == "Дизель") {
-            this.fuelType = fuelType;
-        } else {
-            this.fuelType = "incorrect";
-        }
+public class Bus extends Transport implements Competing {
+
+    public Bus(String mark, String model, double volume) {
+        super(mark, model, volume);
     }
-    public void refill() {
-        if (fuelType == "Дизель" || fuelType == "Бензин") {
-            System.out.println("Заправить " + fuelType);
-        } else {
-            System.out.println("Топливо не подходит");
-        }
+
+    @Override
+    public void toStart() {
+        System.out.println("Закрыть двери, включить передачу, нажать газ");
+    }
+
+    @Override
+    public void toFinish() {
+        System.out.println("Тормоз. Выключить передачу, зажигание.");
+
+    }
+
+    @Override
+    public void pitStop() {
+        System.out.println("Остановиться на пит-стоп");
+    }
+
+    @Override
+    public double betterTime() {
+        return 60;
+    }
+
+    @Override
+    public double maxSpeed() {
+        return 100;
+    }
+
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "mark='" + mark + '\'' +
+                ", model='" + model + '\'' +
+                ", volume=" + volume +
+                '}';
     }
 }
