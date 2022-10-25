@@ -1,11 +1,17 @@
 package transport;
 
-import java.time.LocalDate;
-
 public class Car extends Transport implements Competing {
-
-    public Car(String mark, String model, double volume) {
+    public enum BodyType {
+        SEDAN, HETCHBACK,
+        KYPE, UNIVERSAL,
+        UNROAD, CROSSOVER,
+        PIKUP, FURGON,
+        MINIVAN
+    }
+private BodyType bodyType;
+    public Car(String mark, String model, double volume, BodyType bodyType) {
         super(mark, model, volume);
+        this.bodyType = bodyType;
     }
 
     @Override
@@ -40,6 +46,24 @@ public class Car extends Transport implements Competing {
                 "mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
                 ", volume=" + volume +
+                ", bodyType=" + bodyType +
                 '}';
+    }
+
+    @Override
+    public void printType() {
+        if (bodyType == null) {
+            System.out.println("Данных по авто не достаточно");
+        } else {
+            System.out.println("Тип авто: " +bodyType);
+        }
+    }
+
+    public BodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(BodyType bodyType) {
+        this.bodyType = bodyType;
     }
 }

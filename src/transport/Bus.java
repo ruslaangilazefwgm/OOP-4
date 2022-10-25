@@ -1,8 +1,26 @@
 package transport;
 public class Bus extends Transport implements Competing {
+    public enum Capacity {
+        VERYSMALL(0,10), SMALL(10,25), MEDIUM(40,50), BIG(60,80), VERYBIG(100,120);
+        private int from;
+        private int to;
 
-    public Bus(String mark, String model, double volume) {
+        Capacity(int from, int to) {
+            this.from = from;
+            this.to = to;
+        }
+    }
+    private Capacity capacity;
+    public Bus(String mark, String model, double volume, Capacity capacity) {
         super(mark, model, volume);
+        this.capacity = capacity;
+    }
+    public void printType() {
+        if (capacity == null) {
+            System.out.println("Данных по авто не достаточно");
+        } else {
+            System.out.println("Вместимость авто: от " + capacity.from + " до " + capacity.to);
+        }
     }
 
     @Override
@@ -37,6 +55,15 @@ public class Bus extends Transport implements Competing {
                 "mark='" + mark + '\'' +
                 ", model='" + model + '\'' +
                 ", volume=" + volume +
+                ", capacity= " + capacity +
                 '}';
+    }
+
+    public Capacity getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Capacity capacity) {
+        this.capacity = capacity;
     }
 }
