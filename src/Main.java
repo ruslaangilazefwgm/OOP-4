@@ -1,86 +1,69 @@
 import transport.Bus;
 import transport.Car;
-import transport.Train;
+import transport.Transport;
+import transport.Trucks;
 
 public class Main {
     public static void main(String[] args) {
         Car granta = new Car(
                 "Lada", "Granta",
-                0, 1.7,
-                "Yellow", 2015,
-                "Russia", null, null,
-                null, null,
-                10, false,
-                null, null
-        );
+                 1.7, Car.BodyType.SEDAN);
         Car audi = new Car("Audi",
-                "A8 50 L TDI quattro", 0,
-                3.0, "black",
-                2020, "German",
-                null, null,
-                null, null ,0,
-                false, null,
-                null);
+                "A8 50 L TDI quattro",
+                3.0, Car.BodyType.CROSSOVER);
         Car bmw = new Car("BMW", "Z8",
-                0,3.0,
-                "Black", 2021,
-                "German",null,
-                null, null ,null,
-                0, false,
-                null, null);
+                3.0, Car.BodyType.KYPE);
         Car kia = new Car("Kia", "Sportage 4th legacy",
-                0,2.4,
-                "Red", 2018,
-                "South Korea", null, null,
-                null, null, 0,
-                false, null,
-                null);
-        Car honde = new Car("Hyundai", "Avante",
-                0,1.6,
-                "Orange", 2016,
-                "South Korea", null,
-                null, null,
-                null,0, false,
-                null, null);
-
-        granta.printAuto();
-        audi.printAuto();
-        bmw.printAuto();
-        kia.printAuto();
-        honde.printAuto();
-        System.out.println();
-
-        Train lastochka = new Train("Ласточка", "В-901",
-                2011, "Россия",
-                null, 301, null,
-                3500, 0,
-                "Белорусский вокзал", "Минск-пасс",
-                11);
-        Train leningrad = new Train("Ленинград", "D-125",
-                2019, "Россия",
-                null, 270, null,
-                1700, 0,
-                "Ленинградский вокзал", "Ленинград-пасс",
-                8);
-
-        lastochka.printTrain();
-        leningrad.printTrain();
+                 2.4, Car.BodyType.PIKUP);
+        System.out.println(granta);
+        System.out.println(audi);
+        System.out.println(bmw);
+        System.out.println(kia);
         System.out.println();
 
         Bus pazik = new Bus("Пазик", "Пазик",
-                1950, "Россия",
-                "Желтый", 90, null);
+                1950, Bus.Capacity.VERYSMALL );
         Bus nefaz = new Bus("Нефаз", "Нефаз",
-                2000, "Россия",
-                "Красный", 90, null);
+                2000, Bus.Capacity.SMALL);
         Bus gazel = new Bus("Газель", "Газель",
-                2010, "Россия",
-                "белый", 190, "Бензин");
-        pazik.printTransport();
-        nefaz.printTransport();
-        gazel.printTransport();
-        gazel.refill();
+                2010, Bus.Capacity.BIG);
+        Bus honde = new Bus ("Hyundai", "Avante",
+                1.6, Bus.Capacity.VERYBIG);
+        System.out.println(pazik);
+        System.out.println(nefaz);
+        System.out.println(gazel);
+        System.out.println(honde);
+        System.out.println();
 
+       Trucks iveco = new Trucks("Iveco", "truck",
+                2.4, Trucks.LoadCapacity.N2);
+       Trucks man = new Trucks("man", "truck",
+                2.4, Trucks.LoadCapacity.N1);
+        Trucks volvo = new Trucks("volvo", "truck",
+                2.4, Trucks.LoadCapacity.N3);
+        Trucks renault = new Trucks("renault", "truck",
+                2.4, Trucks.LoadCapacity.N2);
+        System.out.println(iveco);
+        System.out.println(man);
+        System.out.println(volvo);
+        System.out.println(renault);
 
+        DriverB voloda = new DriverB("Voloda", "B", 30, granta);
+        System.out.println(voloda);
+        pazik.printType();
+        service(kia, honde, granta, man, bmw, iveco);
+
+    }
+
+    public static void service(Transport... transports) {
+        for (Transport transport : transports) {
+            if (!transport.passDiagnostic()) {
+                try {
+                    throw new RuntimeException("Автомобиль " + transport.getMark() + " не прошел диагностику");
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
     }
 }
