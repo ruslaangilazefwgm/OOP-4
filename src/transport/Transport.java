@@ -36,6 +36,7 @@ public abstract class Transport {
                 '}';
     }
 
+    public  abstract boolean passDiagnostic();
     public abstract void printType();
     public String getMark() {
         return mark;

@@ -51,6 +51,11 @@ private BodyType bodyType;
     }
 
     @Override
+    public boolean passDiagnostic() {
+        return Math.random() > 0.7;
+    }
+
+    @Override
     public void printType() {
         if (bodyType == null) {
             System.out.println("Данных по авто не достаточно");

@@ -62,6 +62,11 @@ public class Trucks extends Transport implements Competing{
                 '}';
     }
 
+    @Override
+    public boolean passDiagnostic() {
+        return Math.random() > 0.75;
+    }
+
     public LoadCapacity getLoadCapacity() {
         return loadCapacity;
     }

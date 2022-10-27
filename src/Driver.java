@@ -9,9 +9,14 @@ public abstract class Driver<T extends Transport> {
 
     public Driver(String name, String driverLicense, int experience, T car) {
         this.name = name;
-        this.driverLicense = driverLicense;
+        if (driverLicense.matches("^[b-dB-D]+$") && !driverLicense.isEmpty()) {
+            this.driverLicense = driverLicense;
+        } else {
+            throw new RuntimeException("необходимо указать тип прав!");
+        }
         this.experience = experience;
         this.car = car;
+        setDriverLicense(driverLicense);
     }
     public void startDriving() {
         System.out.println("Поехали");
@@ -24,18 +29,20 @@ public abstract class Driver<T extends Transport> {
     public void refill() {
         System.out.println("Заправиться");
     }
-
     public String getName() {
         return name;
     }
 
 
 
-    public String driverLicense() {
+    public String getDriverLicense() {
         return driverLicense;
     }
 
     public void setDriverLicense(String driverLicense) {
+        if (driverLicense == null) {
+            throw new IllegalArgumentException("Необходимо указать тип прав!");
+        }
         driverLicense = driverLicense;
     }
 
