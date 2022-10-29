@@ -1,6 +1,11 @@
 package transport;
 
+import driver.DriverB;
+
 public class Car extends Transport implements Competing {
+    public void addDriver(DriverB driverB) {
+    }
+
     public enum BodyType {
         SEDAN, HETCHBACK,
         KYPE, UNIVERSAL,
@@ -12,6 +17,7 @@ private BodyType bodyType;
     public Car(String mark, String model, double volume, BodyType bodyType) {
         super(mark, model, volume);
         this.bodyType = bodyType;
+
     }
 
     @Override
@@ -62,6 +68,11 @@ private BodyType bodyType;
         } else {
             System.out.println("Тип авто: " +bodyType);
         }
+    }
+
+    @Override
+    public void repair() {
+        System.out.println("Машина " + getMark() + " починена");
     }
 
     public BodyType getBodyType() {

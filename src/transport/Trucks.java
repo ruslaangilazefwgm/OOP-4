@@ -1,6 +1,11 @@
 package transport;
 
+import driver.DriverC;
+
 public class Trucks extends Transport implements Competing{
+    public void addDriver(DriverC driverC) {
+    }
+
     public enum LoadCapacity {
         N1(0.0, 3.5), N2(3.5, 12.0), N3(12.0, null);
         private Double from;
@@ -24,6 +29,11 @@ public class Trucks extends Transport implements Competing{
             String to = loadCapacity.to == null ? "" : "до " + loadCapacity.to;
             System.out.println("Грузоподъемность авто: " + from + to);
         }
+    }
+
+    @Override
+    public void repair() {
+        System.out.println("Машина " + getMark() + " починена");
     }
 
     @Override

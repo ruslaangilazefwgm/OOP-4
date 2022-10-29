@@ -1,10 +1,12 @@
+package driver;
+
 import transport.Transport;
 
-public abstract class Driver<T extends Transport> {
-    private final String name;
-    private  final String driverLicense;
-    private  final int experience;
-    private final T car;
+public  class Driver<T extends Transport> {
+    private  String name;
+    private   String driverLicense;
+    private   int experience;
+//    private  T car;
 
 
     public Driver(String name, String driverLicense, int experience, T car) {
@@ -15,8 +17,9 @@ public abstract class Driver<T extends Transport> {
             throw new RuntimeException("необходимо указать тип прав!");
         }
         this.experience = experience;
-        this.car = car;
+//        this.car = car;
         setDriverLicense(driverLicense);
+
     }
     public void startDriving() {
         System.out.println("Поехали");
@@ -50,12 +53,12 @@ public abstract class Driver<T extends Transport> {
         return experience;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Водитель %s управляет автомобилем %s %s и будет участвовать в заезде",
-                this.name,
-                this.car.getMark(),
-                this.car.getModel());
-
-    }
+//    @Override
+//    public String toString() {
+//        return String.format("Водитель %s управляет автомобилем %s %s и будет участвовать в заезде",
+//                this.name,
+//                this.car.getMark(),
+//                this.car.getModel());
+//
+//    }
 }

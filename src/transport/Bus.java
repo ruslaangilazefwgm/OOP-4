@@ -1,5 +1,11 @@
 package transport;
+
+import driver.DriverD;
+
 public class Bus extends Transport implements Competing {
+    public void addDriver(DriverD driverD) {
+    }
+
     public enum Capacity {
         VERYSMALL(0,10), SMALL(10,25), MEDIUM(40,50), BIG(60,80), VERYBIG(100,120);
         private int from;
@@ -21,6 +27,11 @@ public class Bus extends Transport implements Competing {
         } else {
             System.out.println("Вместимость авто: от " + capacity.from + " до " + capacity.to);
         }
+    }
+
+    @Override
+    public void repair() {
+        System.out.println("Машина " + getMark() + " починена");
     }
 
     @Override
