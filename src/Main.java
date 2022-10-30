@@ -12,7 +12,7 @@ public class Main {
         Car granta = new Car(
                 "Lada", "Granta",
                 1.7, Car.BodyType.SEDAN);
-        granta.addDriver(new DriverB("voloda", "B", 10, granta));
+        granta.addDriverB(new DriverB("voloda", "B", 10, granta));
 
         Car audi = new Car("Audi",
                 "A8 50 L TDI quattro",
@@ -24,7 +24,7 @@ public class Main {
 
         Bus pazik = new Bus("Пазик", "Пазик",
                 1950, Bus.Capacity.VERYSMALL);
-        pazik.addDriver(new DriverD("Alex", "D", 13, pazik));
+        pazik.addDriverD(new DriverD("Alex", "D", 13, pazik));
         Bus nefaz = new Bus("Нефаз", "Нефаз",
                 2000, Bus.Capacity.SMALL);
         Bus gazel = new Bus("Газель", "Газель",
@@ -34,7 +34,7 @@ public class Main {
 
         Trucks iveco = new Trucks("Iveco", "truck",
                 2.4, Trucks.LoadCapacity.N2);
-        iveco.addDriver(new DriverC("Nick", "C", 10, iveco));
+        iveco.addDriverC(new DriverC("Nick", "C", 10, iveco));
         Trucks man = new Trucks("man", "truck",
                 2.4, Trucks.LoadCapacity.N1);
         Trucks volvo = new Trucks("volvo", "truck",
@@ -61,8 +61,6 @@ public class Main {
         granta.addMechanicks(zev);
         granta.addSponsors(lena);
 
-
-
         pazik.addMechanicks(osiq);
         pazik.addSponsors(kanon);
 
@@ -75,10 +73,16 @@ public class Main {
                 nefaz, gazel, honde, iveco, man,
                 volvo, renault
         );
-
         for (Transport transport : allCars) {
             printInfo(transport);
         }
+
+        STO sto = new STO();
+        sto.addCar(granta);
+        sto.addTruck(iveco);
+        sto.toSTO();
+        sto.toSTO();
+
 
     }
 

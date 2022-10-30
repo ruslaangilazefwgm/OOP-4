@@ -1,10 +1,10 @@
 package transport;
 
+import driver.Driver;
 import driver.DriverB;
 
 public class Car extends Transport implements Competing {
-    public void addDriver(DriverB driverB) {
-    }
+
 
     public enum BodyType {
         SEDAN, HETCHBACK,
@@ -18,6 +18,10 @@ private BodyType bodyType;
         super(mark, model, volume);
         this.bodyType = bodyType;
 
+    }
+
+    public void addDriverB(DriverB driverB) {
+        addDriver();
     }
 
     @Override

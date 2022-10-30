@@ -1,11 +1,9 @@
 package transport;
 
+import driver.DriverB;
 import driver.DriverC;
 
 public class Trucks extends Transport implements Competing{
-    public void addDriver(DriverC driverC) {
-    }
-
     public enum LoadCapacity {
         N1(0.0, 3.5), N2(3.5, 12.0), N3(12.0, null);
         private Double from;
@@ -20,6 +18,9 @@ public class Trucks extends Transport implements Competing{
     public Trucks(String mark, String model, double volume, LoadCapacity loadCapacity) {
         super(mark, model, volume);
         this.loadCapacity = loadCapacity;
+    }
+    public void addDriverC(DriverC driverC) {
+        addDriver();
     }
     public void printType() {
         if (loadCapacity == null) {
