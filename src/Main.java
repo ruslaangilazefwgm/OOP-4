@@ -1,86 +1,116 @@
-import transport.Bus;
-import transport.Car;
-import transport.Train;
+import driver.Driver;
+import driver.DriverB;
+import driver.DriverC;
+import driver.DriverD;
+import transport.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         Car granta = new Car(
                 "Lada", "Granta",
-                0, 1.7,
-                "Yellow", 2015,
-                "Russia", null, null,
-                null, null,
-                10, false,
-                null, null
-        );
+                1.7, Car.BodyType.SEDAN);
+        granta.addDriverB(new DriverB("voloda", "B", 10, granta));
+
         Car audi = new Car("Audi",
-                "A8 50 L TDI quattro", 0,
-                3.0, "black",
-                2020, "German",
-                null, null,
-                null, null ,0,
-                false, null,
-                null);
+                "A8 50 L TDI quattro",
+                3.0, Car.BodyType.CROSSOVER);
         Car bmw = new Car("BMW", "Z8",
-                0,3.0,
-                "Black", 2021,
-                "German",null,
-                null, null ,null,
-                0, false,
-                null, null);
+                3.0, Car.BodyType.KYPE);
         Car kia = new Car("Kia", "Sportage 4th legacy",
-                0,2.4,
-                "Red", 2018,
-                "South Korea", null, null,
-                null, null, 0,
-                false, null,
-                null);
-        Car honde = new Car("Hyundai", "Avante",
-                0,1.6,
-                "Orange", 2016,
-                "South Korea", null,
-                null, null,
-                null,0, false,
-                null, null);
-
-        granta.printAuto();
-        audi.printAuto();
-        bmw.printAuto();
-        kia.printAuto();
-        honde.printAuto();
-        System.out.println();
-
-        Train lastochka = new Train("Ласточка", "В-901",
-                2011, "Россия",
-                null, 301, null,
-                3500, 0,
-                "Белорусский вокзал", "Минск-пасс",
-                11);
-        Train leningrad = new Train("Ленинград", "D-125",
-                2019, "Россия",
-                null, 270, null,
-                1700, 0,
-                "Ленинградский вокзал", "Ленинград-пасс",
-                8);
-
-        lastochka.printTrain();
-        leningrad.printTrain();
-        System.out.println();
+                2.4, Car.BodyType.PIKUP);
 
         Bus pazik = new Bus("Пазик", "Пазик",
-                1950, "Россия",
-                "Желтый", 90, null);
+                1950, Bus.Capacity.VERYSMALL);
+        pazik.addDriverD(new DriverD("Alex", "D", 13, pazik));
         Bus nefaz = new Bus("Нефаз", "Нефаз",
-                2000, "Россия",
-                "Красный", 90, null);
+                2000, Bus.Capacity.SMALL);
         Bus gazel = new Bus("Газель", "Газель",
-                2010, "Россия",
-                "белый", 190, "Бензин");
-        pazik.printTransport();
-        nefaz.printTransport();
-        gazel.printTransport();
-        gazel.refill();
+                2010, Bus.Capacity.BIG);
+        Bus honde = new Bus("Hyundai", "Avante",
+                1.6, Bus.Capacity.VERYBIG);
+
+        Trucks iveco = new Trucks("Iveco", "truck",
+                2.4, Trucks.LoadCapacity.N2);
+        iveco.addDriverC(new DriverC("Nick", "C", 10, iveco));
+        Trucks man = new Trucks("man", "truck",
+                2.4, Trucks.LoadCapacity.N1);
+        Trucks volvo = new Trucks("volvo", "truck",
+                2.4, Trucks.LoadCapacity.N3);
+        Trucks renault = new Trucks("renault", "truck",
+                2.4, Trucks.LoadCapacity.N2);
+
+        DriverB voloda = new DriverB("Voloda", "B", 30, granta);
+        DriverB lev = new DriverB("Lev", "B", 20, audi);
+        DriverC nick = new DriverC("Nick", "C", 10, iveco);
+        DriverC stepan = new DriverC("Stepan", "C", 23, man);
+        DriverD alex = new DriverD("Alex", "D", 13, pazik);
+        DriverD dan = new DriverD("Dan", "D", 16, gazel);
+
+
+        Sponsor lena = new Sponsor("Лена", 300_000);
+        Sponsor kanon = new Sponsor("kanon", 600_000);
+        Sponsor beer = new Sponsor("Beer", 500_000);
+
+        Mechanicks<Transport> zev = new Mechanicks<>("Zev", "Zevich", "MotorSport");
+        Mechanicks<Transport> osiq = new Mechanicks<>("Osiq", "Osiqich", "MotorSport");
+        Mechanicks<Transport> gab = new Mechanicks<>("Gab", "Gabich", "MotorSport");
+
+        granta.addMechanicks(zev);
+        granta.addSponsors(lena);
+
+        pazik.addMechanicks(osiq);
+        pazik.addSponsors(kanon);
+
+        iveco.addMechanicks(gab);
+        iveco.addSponsors(beer);
+
+        Set<Transport> allCars = Set.of(
+                granta, audi, bmw, kia, pazik,
+                nefaz, gazel, honde, iveco, man,
+                volvo, renault
+        );
+        for (Transport transport : allCars) {
+            printInfo(transport);
+        }
+
+        STO sto = new STO();
+        sto.addCar(granta);
+        sto.addTruck(iveco);
+        sto.toSTO();
+        sto.toSTO();
 
 
     }
+
+    public static void printInfo(Transport transport) {
+        System.out.println("Информация по автомобилю " + transport.getMark() + transport.getModel());
+        System.out.println("Водители: " + transport.getDrivers());
+        System.out.println("Спонсоры: ");
+        for (Sponsor sponsors : transport.getSponsors()) {
+            System.out.println(sponsors.getName());
+        }
+        System.out.println("Механики: ");
+        for (Mechanicks mechanicks : transport.getMechaniks()) {
+            System.out.println(mechanicks.getName());
+        }
+        System.out.println();
+    }
+
+    public static void service(Transport... transports) {
+        for (Transport transport : transports) {
+            if (!transport.passDiagnostic()) {
+                try {
+                    throw new RuntimeException("Автомобиль " + transport.getMark() + " не прошел диагностику");
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
+
+
 }

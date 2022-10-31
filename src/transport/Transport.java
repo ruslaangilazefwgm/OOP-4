@@ -1,15 +1,20 @@
 package transport;
 
+import driver.DriverB;
+
+import java.sql.Driver;
+import java.util.*;
+
 public abstract class Transport {
     protected String mark;
     protected String model;
-    protected int year;
-    protected String country;
-    protected String colour;
-    protected int maxSpeed;
-    protected  String fuelType;
+     protected double volume;
+    private final Set<Driver> drivers = new HashSet<>();
+    private final Set<Mechanicks> mechaniks = new HashSet<>();
+    private final Set<Sponsor> sponsors = new HashSet<>();
 
-    public Transport(String mark, String model, int year, String country, String colour, int maxSpeed, String fuelType) {
+
+    public Transport(String mark, String model, double volume) {
         if (mark != null && !mark.isEmpty()) {
             this.mark = mark;
         } else {
@@ -20,43 +25,40 @@ public abstract class Transport {
         } else {
             this.model = "incorrect";
         }
-        if (year == 0) {
-            this.year = 2000;
+        if (Double.compare(volume,0) == 0) {
+            this.volume = 1.5;
         } else {
-            this.year = year;
+            this.volume = volume;
         }
-        if (country == null) {
-            this.country = "Incorrect";
-        } else {
-            this.country = country;
-        }
-        if (colour != null && !colour.isEmpty()) {
-            this.colour = colour;
-        } else {
-            this.colour = "incorrect";
-        }
-        if (maxSpeed == 0) {
-            this.maxSpeed = 120;
-        } else {
-            this.maxSpeed = maxSpeed;
-        }
-        if (fuelType != null && !fuelType.isEmpty()) {
-            this.fuelType = fuelType;
-        } else {
-            this.fuelType = "incorrect";
-        }
+
     }
 
-    public void printTransport() {
-        System.out.println("Марка: " + getMark() +
-                ", модель: " + getModel() +
-                ", год: " + getYear() +
-                ", страна: " + getCountry() +
-                ", цвет: " + getColour() +
-                ", скорость: " + getMaxSpeed() + " км/ч.");
+    public void addDriver(Driver... drivers) {
+        this.drivers.addAll(Arrays.asList(drivers));
+    }
+    public void addMechanicks(Mechanicks... mechanicks) {
+        this.mechaniks.addAll(Arrays.asList(mechanicks));
+    }
+    public void addSponsors(Sponsor... sponsors) {
+        this.sponsors.addAll(Arrays.asList(sponsors));
     }
 
-    public abstract void refill();
+    public abstract void toStart();
+
+    public abstract void toFinish();
+
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "mark='" + mark + '\'' +
+                ", model='" + model + '\'' +
+                ", volume=" + volume +
+                ", Drivers=" + drivers +
+                '}';
+    }
+
+    public  abstract boolean passDiagnostic();
+    public abstract void printType();
     public String getMark() {
         return mark;
     }
@@ -77,32 +79,23 @@ public abstract class Transport {
             this.model = "incorrect";
         }
     }
-    public int getYear() {
-        return year;
+    public double getVolume() {
+        return volume;
     }
-    public String getCountry() {
-        return country;
+
+    public Set<Driver> getDrivers() {
+        return drivers;
     }
-    public String getColour() {
-        return colour;
+
+    public Set<Mechanicks> getMechaniks() {
+        return mechaniks;
     }
-    public void setColour(String colour) {
-        if (colour != null && !colour.isEmpty()) {
-            this.colour = colour;
-        } else {
-            this.colour = "incorrect";
-        }
+
+    public Set<Sponsor> getSponsors() {
+        return sponsors;
     }
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-    public String getFuelType() {
-        return fuelType;
-    }
-    public void setFuelType(String fuelType) {
-        this.fuelType = fuelType;
-    }
+
+    public abstract void repair();
+
+
 }
