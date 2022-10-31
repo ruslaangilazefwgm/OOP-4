@@ -6,6 +6,7 @@ import transport.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -67,8 +68,7 @@ public class Main {
         iveco.addMechanicks(gab);
         iveco.addSponsors(beer);
 
-
-        List<Transport> allCars = List.of(
+        Set<Transport> allCars = Set.of(
                 granta, audi, bmw, kia, pazik,
                 nefaz, gazel, honde, iveco, man,
                 volvo, renault

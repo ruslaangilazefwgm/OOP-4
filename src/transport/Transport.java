@@ -3,17 +3,15 @@ package transport;
 import driver.DriverB;
 
 import java.sql.Driver;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public abstract class Transport {
     protected String mark;
     protected String model;
      protected double volume;
-    private final List<Driver> drivers = new ArrayList<>();
-    private final List<Mechanicks> mechaniks = new ArrayList<>();
-    private final List<Sponsor> sponsors = new ArrayList<>();
+    private final Set<Driver> drivers = new HashSet<>();
+    private final Set<Mechanicks> mechaniks = new HashSet<>();
+    private final Set<Sponsor> sponsors = new HashSet<>();
 
 
     public Transport(String mark, String model, double volume) {
@@ -85,15 +83,15 @@ public abstract class Transport {
         return volume;
     }
 
-    public List<Driver> getDrivers() {
+    public Set<Driver> getDrivers() {
         return drivers;
     }
 
-    public List<Mechanicks> getMechaniks() {
+    public Set<Mechanicks> getMechaniks() {
         return mechaniks;
     }
 
-    public List<Sponsor> getSponsors() {
+    public Set<Sponsor> getSponsors() {
         return sponsors;
     }
 
